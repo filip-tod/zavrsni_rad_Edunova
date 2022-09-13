@@ -1,0 +1,8 @@
+https://dabar.srce.hr/islandora/object/unin%3A3406
+
+File -> Prefferences -> Configure User snipets dodati
+"Konfiguracija": {
+		"prefix": ["config"],
+		"body": ["<?=App::config('$1')?>"],
+		"description": "Unesi ključ pod kojim se nalazi vrijednost u konfiguraciji"
+	} 
