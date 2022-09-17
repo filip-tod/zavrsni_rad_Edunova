@@ -1,0 +1,42 @@
+<table>
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Cijena</th>
+            <th>Trajanje</th>
+            <th>Upisnina</th>
+            <th>Certificiran</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($smjerovi as $s): ?>
+            <tr>
+                <td><?=$s->naziv?></td>
+                <td><?=$s->cijena?></td>
+                <td><?=$s->trajanje?></td>
+                <td><?=$s->upisnina?></td>
+                <td><?=$s->certificiran?></td>
+                <td><i class="fi-address-book"></i></td>
+            </tr>
+        <?php endforeach;?>
+    </tbody>
+</table>
+
+<?php 
+// Ovo je JAKO JAKO LOŠE ali radi - NIKADA OVO NE RADITI
+/*
+$veza = DB::getInstance();
+$izraz = $veza->prepare('
+
+    select * from osoba
+
+');
+$izraz->execute(); 
+$rez = $izraz->fetchAll(); 
+ foreach($rez as $s){
+    
+  echo $s->ime . '<br />';  
+ }
+ */
+ ?>

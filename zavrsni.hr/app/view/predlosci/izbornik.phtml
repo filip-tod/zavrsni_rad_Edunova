@@ -14,6 +14,31 @@
       <?php endif; ?>
     </ul>
   </div>
+  <div class="top-bar">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text"></li>
+      <li>
+        <a href="#">Proizvodi</a>
+        <ul class="menu vertical">
+          <li><a href="<?=App::config('url') ?>login/prijava">Dresovi</a></li>   <!-- URL treba popraviti kada napravim controler i view -->
+          <li><a href="<?=App::config('url') ?>login/prijava">Hlačice</a></li>   <!--  počinje od ovih linija -->
+          <li><a href="<?=App::config('url') ?>login/prijava">Patike</a></li>
+          <li><a href="<?=App::config('url') ?>login/prijava">Dodatna oprema</a></li>
+        </ul>
+      </li>
+      <li><a href="<?=App::config('url') ?>login/prijava">o nama</a></li>
+
+    </ul>
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+      <li><input type="search" placeholder="Search"></li>
+      <li><button type="button" class="button">Search</button></li>
+    </ul>
+  </div>
+</div>
+
   <div class="top-bar-right">
     <ul class="menu">
       <?php if(!App::auth()): ?>
