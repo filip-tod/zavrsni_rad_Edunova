@@ -1,6 +1,8 @@
 <?php
 
 // čitati https://phpenthusiast.com/blog/the-singleton-design-pattern-in-php
+
+// ! nevalja mi spajanje na bazu ! //
 class DB extends PDO
 {
 

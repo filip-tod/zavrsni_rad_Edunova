@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'url'=>'http://app.hr/',
-    'nazivApp'=>'Edunova App',
+    'url'=>'http://NBA_shop.hr/',
+    'nazivApp'=>'NBA_shop',
     'baza'=>[
         'server'=>'localhost',
-        'baza'=>'edunovapp25',
-        'korisnik'=>'edunova',
-        'lozinka'=>'edunova'
+        'baza'=>'NBA_shop',
+        'korisnik'=>'Michael',
+        'lozinka'=>'Jordan'
     ]
 ];
