@@ -5,8 +5,9 @@ return [
     'nazivApp'=>'NBA_shop',
     'baza'=>[
         'server'=>'localhost',
-        'baza'=>'NBA_shop',
-        'korisnik'=>'Michael',
-        'lozinka'=>'Jordan'
+        'baza'=>'nba_shop',
+        'korisnik'=>'filip',
+        'lozinka'=>'filip'
     ]
 ];
+

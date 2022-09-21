@@ -1,4 +1,10 @@
-# C:\xampp\mysql\bin\mysql -uroot --default_character_set=utf8  < C:\Users\Filip\Documents\zavrsni_rad\zavrsni.hr\edunovapp25.sql
+# C:\xampp\mysql\bin\mysql -uroot --default_character_set=utf8  < C:\Users\Filip\Documents\zavrsni_rad\zavrsni.hr\NBA_shop.sql
+
+# davanje ovlasti korisnik filip lozinka filip
+#grant all privileges
+#on NBA_shop.*
+#to 'filip'@'localhost'
+#identified by 'filip';
 
 drop database if exists NBA_shop;
 create database NBA_shop default charset utf8mb4;
