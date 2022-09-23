@@ -9,7 +9,7 @@ return [
     'nazivApp'=>'nba_shop',
     'baza'=>[
         'server'=>'localhost',
-        'baza'=>'DEV nba_shop',
+        'baza'=>'nba_shop',
         'korisnik'=>'root',
         'lozinka'=>'root'
     ]    
