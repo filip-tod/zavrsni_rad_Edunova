@@ -1,6 +1,6 @@
 <?php 
 
-class onamaController extends Controller
+class OnamaController extends Controller
 {
     public function index()
     {

@@ -1,6 +1,6 @@
 <?php 
 
-class proizvodiController extends Controller
+class ProizvodiController extends Controller
 {
     public function patike()
     {
