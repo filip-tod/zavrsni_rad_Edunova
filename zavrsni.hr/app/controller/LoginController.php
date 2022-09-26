@@ -7,7 +7,7 @@ class LoginController extends Controller
        // $this->view->render('prijava',[
         //    'poruka'=>'Popunite tražene podatke'
        // ]);
-       $this->prijavaView('oper@edunova.hr','Popunite tražene podatke');
+       $this->prijavaView('operater@edunova.hr','Popunite tražene podatke');
     }
 
     public function autorizacija()
