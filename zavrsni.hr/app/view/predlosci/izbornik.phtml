@@ -11,6 +11,17 @@
       <li><a href="<?=App::config('url') ?>">Početna</a></li>
       <?php if(App::auth()): ?>
         <li><a href="<?=App::config('url') ?>nadzornaploca">Nadzorna ploča</a></li>
+        <li>
+          <a href="#">Programi</a>
+          <ul class="vertical menu">
+            <li><a href="<?=App::config('url') ?>kupac">kupac</a></li>
+            <li><a href="<?=App::config('url') ?>nba_team">nba_team</a></li>
+            <li><a href="<?=App::config('url') ?>igrac">igrač</a></li>
+            <li><a href="<?=App::config('url') ?>oprema">Oprema</a></li>
+            <li><a href="<?=App::config('url') ?>kosarica">košarica</a></li>
+            <li><a href="<?=App::config('url') ?>naruceni_proizvodi">naručeni proizvodi</a></li>
+          </ul>
+        </li>  
       <?php endif; ?>
     </ul>
   </div>
