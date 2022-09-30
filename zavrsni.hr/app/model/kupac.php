@@ -1,6 +1,6 @@
 <?php
 
-class kupac
+class Kupac
 {
 
 
@@ -30,7 +30,7 @@ class kupac
         return $izraz->fetchAll(); // vraća indeksni niz objekata tipa stdClass
     }
 
-    public static function create($e)
+    public static function create($kupac)
     {
 
         $veza = DB::getInstance();
@@ -41,10 +41,10 @@ class kupac
             values (:ime,:prezime,:email);
         
         ');
-        $izraz->execute($e);
+        $izraz->execute($kupac);
     }
 
-    public static function update($e)
+    public static function update($kupac)
     {
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
@@ -56,7 +56,7 @@ class kupac
                     where sifra=:sifra
         
         ');
-        $izraz->execute($e);
+        $izraz->execute($kupac);
         
     }
 
