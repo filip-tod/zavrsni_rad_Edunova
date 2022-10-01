@@ -2,8 +2,6 @@
 
 class Kupac
 {
-
-
     public static function readOne($sifra)
     {
         $veza = DB::getInstance();
@@ -42,6 +40,7 @@ class Kupac
         
         ');
         $izraz->execute($kupac);
+        return $veza->lastInsertId();
     }
 
     public static function update($kupac)
@@ -49,15 +48,14 @@ class Kupac
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-            update smjer set
+            update kupac set
                 ime=:ime,
                 prezime=:prezime,
-                email=:email,
+                email=:email
                     where sifra=:sifra
         
         ');
         $izraz->execute($kupac);
-        
     }
 
     public static function delete($sifra)

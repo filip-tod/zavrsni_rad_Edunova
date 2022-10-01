@@ -1,4 +1,4 @@
-# C:\xampp\mysql\bin\mysql -uroot --default_character_set=utf8  < C:\Users\Filip\Documents\zavrsni_rad\zavrsni.hr\NBA_shop.sql
+# C:\xampp\mysql\bin\mysql -uroot -p -default_character_set=utf8  < C:\Users\Filip\Documents\zavrsni_rad\nba_shop.hr\NBA_shop.sql
 
 # davanje ovlasti korisnik filip lozinka filip
 #grant all privileges
