@@ -83,5 +83,10 @@ class KupacController extends AutorizacijaController
         return true;
     }
 
+    public function brisanje($sifra)
+    {
+        Kupac::delete($sifra);
+        header('location: ' . App::config('url') . 'kupac');
+    }
 
 }

@@ -4,8 +4,9 @@
             <div class="callout" style="text-align: center;">
                 slika
                 <hr />
-                <h1 style="font-size: 1.5rem;"> <?=$e->ime_kluba?> <?=$e->championships_won?></h1>
-                <?=$e->trener?> <?=$e->stadion?>
+                <h1 style="font-size: 1.5rem;"> <?=$e->ime_kluba?> <i style="color:gold" class="fi-trophy"><?=$e->championships_won?></i> </h1>
+                <h2 style="font-size: 1.20rem;">trener: <?=$e->trener?> </h2>
+                <h3 style="font-size: 1.0rem;">stadion:<?=$e->stadion?></h3>
                 <hr />
                 <a href="<?=App::config('url')?>nba_team/promjena/<?=$e->sifra?>">
                     <i style="color: blue;" 
