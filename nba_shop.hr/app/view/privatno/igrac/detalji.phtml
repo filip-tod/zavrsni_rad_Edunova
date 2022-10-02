@@ -1,0 +1,31 @@
+<form method="post" 
+action="<?=App::config('url')?>igrac/promjena/<?=$e->sifra?>">
+  
+  
+  <label>Prezime:
+    <input type="text" name="prezime" value="<?=$e->prezime?>" />
+  </label>
+
+  <label>Ime:
+    <input type="text" name="ime" value="<?=$e->ime?>" />
+  </label>
+
+
+  <label>broj prstena:
+    <input type="email" name="email" value="<?=$e->rings_count?>" />
+  </label>
+
+  <?=$poruka?>
+
+  <div class="grid-x grid-padding-x">
+    <div class="large-6 cell">
+        <a class="alert button expanded" 
+            href="<?=App::config('url')?>igrac">Odustani</a>
+    </div>
+    <div class="large-6 cell">
+        <input type="submit" class="button expanded" value="Spremi"></input>
+    </div>
+  </div>
+
+
+</form>
