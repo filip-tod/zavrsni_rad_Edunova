@@ -21,9 +21,11 @@ class IgracController extends AutorizacijaController
     public function novi()
     {
         $noviIgrac = Igrac::create([
+            'nba_team'=>1,
             'ime'=>'',
             'prezime'=>'',
             'rings_count'=>''
+            
         ]);
         header('location: ' . App::config('url') 
                 . 'igrac/promjena/' . $noviIgrac);
@@ -67,7 +69,7 @@ class IgracController extends AutorizacijaController
 
     private function kontrolaIme()
     {
-        if(strlen($this->entitet->ime_kluba)===0){
+        if(strlen($this->entitet->ime)===0){
             $this->poruka = 'Ime igrača obavezno !!';
             return false;
         }
@@ -85,7 +87,7 @@ class IgracController extends AutorizacijaController
 
     private function kontrolaRingsCount()
     {
-        if(strlen($this->entitet->championships_won)===0){
+        if(strlen($this->entitet->ringsCount)===0){
             $this->poruka = 'obavezan broj prstena';
             return false;
         }

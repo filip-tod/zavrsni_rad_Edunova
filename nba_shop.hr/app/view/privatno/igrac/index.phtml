@@ -7,7 +7,8 @@
                 slika
                 <hr />
                 <h2 style="font-size: 1.5rem;"> <?=$e->ime?> <?=$e->prezime?></h2>
-                <?=$e->rings_count?>
+                   broj prstena: <?=$e->rings_count?>
+                <h6>Ekipa:<?=$e->ime_kluba?></h6>
                 <hr />
                 <a href="<?=App::config('url')?>igrac/promjena/<?=$e->sifra?>">
                     <i style="color: blue;" 

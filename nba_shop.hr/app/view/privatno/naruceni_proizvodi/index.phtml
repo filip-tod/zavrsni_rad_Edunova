@@ -1,0 +1,20 @@
+<div class="grid-x grid-padding-x">
+    <?php foreach($entiteti as $e):?>
+        <div class="large-3 cell">
+            <div class="callout" style="text-align: center;">
+                slika
+                <hr />
+                <h1 style="font-size: 1.5rem;"> <?=$e->ime?>  </h1>
+                <h2 style="font-size: 1.5rem;"> <?=$e->prezime?> </h2>
+                <h3 style="font-size: 1.20rem;">datum isporuke: <?=$e->datum_isporuke?>   </h3>
+                <h5 style="font-size: 1.0rem;">cijena: <?=$e->ukupna_cijena_proizvoda?> HRK</h5>
+                <h4 style="font-size: 1.20rem;">količina opreme: <?=$e->kolicina_opreme?> KG</h4>
+                <hr />
+                <a href="<?=App::config('url')?>naruceni_proizvodi/promjena/<?=$e->sifra?>">
+                    <i style="color: blue;" 
+                    class="step fi-pencil size-36"></i>
+                </a>
+            </div>
+        </div>
+    <?php endforeach ?>
+</div>
