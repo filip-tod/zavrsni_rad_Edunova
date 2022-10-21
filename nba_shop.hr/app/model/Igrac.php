@@ -7,7 +7,7 @@ class Igrac
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-        SELECT a.rings_count, b.ime_kluba, a.ime , a.prezime  
+        SELECT a.sifra, b.ime_kluba, a.ime, a.prezime, a.rings_count
         FROM igrac a inner join nba_team b
         on a.nba_team =b.sifra 
         where a.sifra=:sifra
@@ -25,7 +25,7 @@ class Igrac
         $izraz = $veza->prepare('
         
         SELECT  a.rings_count, b.ime_kluba, a.ime , a.prezime  
-        FROM igrac a inner join nba_team b
+        FROM igrac a left join nba_team b
         on a.nba_team =b.sifra 
         
         ');
@@ -38,19 +38,18 @@ class Igrac
         $veza = DB::getInstance();
         $veza->beginTransaction();
         $izraz = $veza->prepare('
-            insert into igrac (nba_team,ime,prezime,rings_count)
-            values (:nba_team,:ime,:prezime,:rings_count);
+        select sifra from nba_team 
+        
         ');
         $izraz->execute([
-            'nba_team'=>$p['nba_team'],
-            'ime'=>$p['ime'],
-            'prezime'=>$p['prezime'],
-            'rings_count'=>$p['rings_count']
+            'sifra'=>$p['nba_team']
         ]);
-        $sifraNba = $veza->lastInsertId();
+        $sifraNba = $izraz->fetchColumn();
+        
         $izraz = $veza->prepare('
-            insert into nba_team (ime_kluba,trener,championships_won,stadion)
-            values (ime_kluba,:trener,:championships_won,:stadion);
+        insert into igrac (nba_team,ime,prezime,rings_count)
+        values (:nba_team,:ime,:prezime,:rings_count);
+           
         ');
         $izraz->execute([
             'nba_team'=>$sifraNba,
@@ -66,49 +65,38 @@ class Igrac
     
     
 
-    public static function update($p)
+    public static function update($p, $sifra)
     {
         $veza = DB::getInstance();
         $veza->beginTransaction();
 
         $izraz = $veza->prepare('
         
-           select nba_team from igrac where sifra=:sifra
+           select nba_team from igrac where nba_team=:sifra
         
         ');
         $izraz->execute([
             'sifra'=>$p['sifra']
         ]);
-        $sifraNba = $izraz->fetchColumn();
 
         $izraz = $veza->prepare('
             update nba_team set
             ime_kluba=:ime_kluba,
             trener=:trener,
-            championships_won=:championships_won,
-            stadion=:stadion
+            championships_won=:prezime,
+            stadion=:stadion,
             where sifra=:sifra
         ');
         $izraz->execute([
-            'ime_kluba'=>$p['ime_kluba'],
-            'trener'=>$p['trener'],
-            'championships_won'=>$p['championships_won'],
-            ' stadion'=>$p[' stadion'],
-            'sifra'=>$sifraNba
+            'ime_kluba'=>$p['sifra'],
+            'trener'=>$p['ime'],
+            'championships_won'=>$p['prezime'],
+            'stadion'=>$p['rigs_count'],
+            'sifra'=>$p['sifra']
         ]);
 
-        $izraz = $veza->prepare('
-            update igrac set
-            ime=:ime
-            prezime=:prezime
-            rings_count=:rings_count
-            where sifra=:sifra
-        ');
-        $izraz->execute([
-            'ime'=>$p['ime'],
-            'prezime'=>$p['prezime'],
-            'rings_count'=>$p['rigs_count'],
-            'sifra'=>$p['sifra']
+        $izraz = $veza->prepare([
+
         ]);
 
 
@@ -123,7 +111,7 @@ class Igrac
 
         $izraz = $veza->prepare('
         
-           select nba_team from igrac where sifra=:sifra
+           select sifra from nba_team where 
         
         ');
         $izraz->execute([

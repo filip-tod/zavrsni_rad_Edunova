@@ -1,6 +1,10 @@
 <form method="post" 
 action="<?=App::config('url')?>igrac/promjena/<?=$e->sifra?>">
-  
+
+
+<label>NBA team:
+    <input type="text" name="nba_team" value="<?=$e->nba_team?>" />
+  </label>  
   
   <label>Prezime:
     <input type="text" name="prezime" value="<?=$e->prezime?>" />
@@ -12,7 +16,7 @@ action="<?=App::config('url')?>igrac/promjena/<?=$e->sifra?>">
 
 
   <label>broj prstena:
-    <input type="email" name="email" value="<?=$e->rings_count?>" />
+    <input type="text" name="rings_count" value="<?=$e->rings_count?>" />
   </label>
 
   <?=$poruka?>

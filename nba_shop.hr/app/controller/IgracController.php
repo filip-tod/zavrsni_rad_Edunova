@@ -20,8 +20,8 @@ class IgracController extends AutorizacijaController
 
     public function novi()
     {
-        $noviIgrac = Igrac::create([
-            'nba_team'=>1,
+        $noviIgrac = Igrac::create([   
+            'nba_team'=>false,
             'ime'=>'',
             'prezime'=>'',
             'rings_count'=>''
@@ -30,19 +30,25 @@ class IgracController extends AutorizacijaController
         header('location: ' . App::config('url') 
                 . 'igrac/promjena/' . $noviIgrac);
     }
-    
+
+    public function brisanje($sifra)
+    {
+        Igrac::delete($sifra);
+        header('location: ' . App::config('url') . 'igrac');
+    }
+
     public function promjena($sifra)
     {
-        if(!isset($_POST['igrac'])){
+        if(!isset($_POST['naziv'])){
 
             $e = Igrac::readOne($sifra);
             if($e==null){
                 header('location: ' . App::config('url') . 'igrac');
             }
 
-            $this->view->render($this->phtmlDir . 'detalji',[
+            $this->view->render($this->phtmlDir . 'update',[
                 'e' => $e,
-                'poruka' => 'Unesite podatke'
+                'poruka' => 'Promjenite podatke'
             ]);
             return;
         }
@@ -50,11 +56,11 @@ class IgracController extends AutorizacijaController
         $this->entitet = (object) $_POST;
         $this->entitet->sifra=$sifra;
     
-        if($this->kontrola()){
-            Igrac::update((array)$this->entitet);
-            header('location: ' . App::config('url') . 'igrac');
-            return;
-        }
+    //     if($this->kontrola()){
+    //         Igrac::update((array)$this->entitet);
+    //         header('location: ' . App::config('url') . 'igrac');
+    //         return;
+    //     }
 
         $this->view->render($this->phtmlDir . 'detalji',[
             'e'=>$this->entitet,
@@ -62,37 +68,38 @@ class IgracController extends AutorizacijaController
         ]);
     }
 
-    private function kontrola()
-    {
-        return $this->kontrolaIme() && $this->KontrolaPrezime() && $this->KontrolaRingsCount();
-    }
+    // private function kontrola()
+    // {
+    //     return $this->kontrolaIme() && $this->KontrolaPrezime() && $this->KontrolaRingsCount();
+    // }
 
-    private function kontrolaIme()
-    {
-        if(strlen($this->entitet->ime)===0){
-            $this->poruka = 'Ime igrača obavezno !!';
-            return false;
-        }
-        return true;
-    }
+    // private function kontrolaIme()
+    // {
+    //     if(strlen($this->entitet->ime)===0){
+    //         $this->poruka = 'Ime igrača obavezno !!';
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
-    private function kontrolaPrezime()
-    {
-        if(strlen($this->entitet->stadion)===0){
-            $this->poruka = 'Prezime Obavezno';
-            return false;
-        }
-        return true;
-    }
+    // private function kontrolaPrezime()
+    // {
+    //     if(strlen($this->entitet->stadion)===0){
+    //         $this->poruka = 'Prezime Obavezno';
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
-    private function kontrolaRingsCount()
-    {
-        if(strlen($this->entitet->ringsCount)===0){
-            $this->poruka = 'obavezan broj prstena';
-            return false;
-        }
-        return true;
-    }
+    // private function kontrolaRingsCount()
+    // {
+    //     if(strlen($this->entitet->ringsCount)===0){
+    //         $this->poruka = 'obavezan broj prstena';
+    //         return false;
+    //     }
+    //     return true;
+    // }
+
 
 
 }

@@ -17,5 +17,26 @@ class OpremaController extends AutorizacijaController
         ]);
     }
 
+    public function novi()
+    {
+        $noviOprema = Oprema::create([   
+            'velicina'=>'',
+            'boja'=>'',
+            'igrac'=>null,
+            'cijena'=>'',
+            'tezina_proizvoda'=>'',
+            'vrsta_proizvoda'=>''
+            
+        ]);
+        header('location: ' . App::config('url') 
+                . 'oprema/promjena/' . $noviOprema);
+    }
+
+    public function brisanje($sifra)
+    {
+        Oprema::delete($sifra);
+        header('location: ' . App::config('url') . 'oprema');
+    }
+
 
 }

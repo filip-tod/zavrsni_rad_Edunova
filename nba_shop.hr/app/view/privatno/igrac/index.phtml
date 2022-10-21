@@ -3,11 +3,11 @@
 <div class="grid-x grid-padding-x">
     <?php foreach($entiteti as $e):?>
         <div class="large-3 cell">
-            <div class="callout" style="text-align: center;">
+            <div class="call out" style="text-align: center;">
                 slika
                 <hr />
                 <h2 style="font-size: 1.5rem;"> <?=$e->ime?> <?=$e->prezime?></h2>
-                   broj prstena: <?=$e->rings_count?>
+                   broj prstena:<i style="color:gold" class="fi-record"></i> <?=$e->rings_count?>
                 <h6>Ekipa:<?=$e->ime_kluba?></h6>
                 <hr />
                 <a href="<?=App::config('url')?>igrac/promjena/<?=$e->sifra?>">

@@ -1,6 +1,6 @@
 <?php
 
-class oprema
+class Oprema
 {
 
     public static function readOne($sifra)
@@ -41,4 +41,44 @@ class oprema
     }
 
     // CRUD - C
+
+    // select c.ime_kluba , b.ime , b.prezime , a.vrsta_proizvoda  from oprema a
+    //  inner join igrac b 
+    // on a.igrac = b.sifra  
+    // left join nba_team c
+    //  on b.nba_team = c.sifra ;
+
+    public static function update($p)
+    {
+        $veza = DB::getInstance();
+        $veza->beginTransaction();
+
+        $izraz = $veza->prepare('
+        
+           select nba_team from igrac where sifra=:sifra
+        
+        ');
+        $izraz->execute([
+            'sifra'=>$p['sifra']
+        ]);
+
+        $izraz = $veza->prepare('
+           select igrac from oprema where sifra=:sifra
+        ');
+        $izraz->execute([
+          'sifra'=>$p['sifra']
+        ]);
+        $izraz->execute([
+            'velicina'=>$p['velicina'],
+            'boja'=>$p['boja'],
+            'igrac'=>'sifra',
+            'cijena'=>$p['cijena'],
+            'tezina_proizvoda'=>$p['tezina_proizvoda'],
+            'vrsta_proizvoda'=>$p['vrsta_proizvoda']
+        ]);
+
+
+        $veza->commit();
+
+    }
 }
