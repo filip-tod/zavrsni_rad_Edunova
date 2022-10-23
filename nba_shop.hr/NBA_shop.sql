@@ -1,10 +1,10 @@
-# C:\xampp\mysql\bin\mysql -uroot -p-default_character_set=utf8  < C:\Users\Filip\Documents\zavrsni_rad\nba_shop.hr\NBA_shop.sql
+# C:\xampp\mysql\bin\mysql -uroot -proot --default_character_set=utf8  < C:\Users\Filip\Documents\zavrsni_rad\nba_shop.hr\NBA_shop.sql
 
 # davanje ovlasti korisnik filip lozinka filip
 #grant all privileges
 #on NBA_shop.*
-#to 'filip'@'localhost'
-#identified by 'filip';
+#to 'root'@'localhost'
+#identified by 'root';
 
 drop database if exists NBA_shop;
 create database NBA_shop default charset utf8mb4;
@@ -37,7 +37,7 @@ create table nba_team(
 
 create table igrac(
     sifra int not null primary key auto_increment,
-    nba_team int not null,
+    nba_team int,
     ime varchar(20) ,
     prezime VARCHAR(20),
     rings_count VARCHAR(50)
@@ -46,7 +46,7 @@ create table igrac(
     
 
 
-create table Kupac(
+create table kupac(
     sifra int not null primary key auto_increment,
     ime VARCHAR(50)not null, 
     prezime varchar(50)not null,
@@ -58,7 +58,7 @@ create table oprema (
     sifra int not null primary key auto_increment,
     velicina VARCHAR(50),
     boja VARCHAR(50),
-    igrac int not null,
+    igrac int,
     cijena decimal(18,2),
     tezina_proizvoda VARCHAR(50),
     vrsta_proizvoda VARCHAR(50) 
@@ -69,8 +69,8 @@ create table oprema (
 
 create table naruceni_proizvodi (
     sifra int not null primary key auto_increment,
-    kosarica int not null,
-    kupac int not null
+    kosarica int,
+    kupac int 
     
 );
 
@@ -78,9 +78,9 @@ create table naruceni_proizvodi (
     
 create table kosarica(
     sifra int not null primary key auto_increment,
-    oprema int not null,
-    ukupna_tezina_proizvoda decimal(18,5) not null,
-    ukupna_cijena_proizvoda decimal(18,5) not null,
+    oprema int ,
+    ukupna_tezina_proizvoda decimal(18,5),
+    ukupna_cijena_proizvoda decimal(18,5),
     datum_isporuke datetime,
     kolicina_opreme int
 
@@ -315,7 +315,7 @@ values             (null,'košarkaški-Dres', 1, 'Žuto-Ljubičasta', 'XL', '300
                    (null, 'štitnik', 20 , 'plavi', 'L', '100g', 150.99);
 
 insert into kosarica(sifra, oprema , ukupna_tezina_proizvoda , ukupna_cijena_proizvoda, datum_isporuke, kolicina_opreme)
-values(null,1,10.0,12.2,"2022-07-13 12:24:60", 4);
+values(null,1,10.0,12.2,"2022-07-13 00:00:00", 4);
 
 
 insert into kupac(sifra,ime, prezime,email)

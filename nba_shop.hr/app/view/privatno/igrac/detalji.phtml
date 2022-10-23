@@ -1,25 +1,27 @@
 <form method="post" 
 action="<?=App::config('url')?>igrac/promjena/<?=$e->sifra?>">
+<label for="naziv">Ime igrača</label>
+<input type="text" name="ime" id="ime" value="<?=$e->ime?>">
+<label for="naziv">Prezime igrača:</label>
+<input type="text" name="prezime" id="prezime" value="<?=$e->prezime?>">
+<label for="naziv">Odaberi ekpipu igrača:</label>
+<label for="nba_team">Ekipa</label>
+<select name="nba_team" id="nba_team">
+    <?php foreach($nba_team as $n): ?>
+        <option
+        <?php if ($e->nba_team==$n->sifra){
+            echo ' selected="selected"';
+        }
+        ?>
+        value="<?=$s->sifra?>"><?=$s->ime?></option>
+    <?php endforeach; ?>
+</select>
+Pobjede u Finalu:
+<input type="text" name="rings_count" id="rings_count" value="<?=$e->rings_count?>">
 
 
-<label>NBA team:
-    <input type="text" name="nba_team" value="<?=$e->nba_team?>" />
-  </label>  
-  
-  <label>Prezime:
-    <input type="text" name="prezime" value="<?=$e->prezime?>" />
-  </label>
 
-  <label>Ime:
-    <input type="text" name="ime" value="<?=$e->ime?>" />
-  </label>
-
-
-  <label>broj prstena:
-    <input type="text" name="rings_count" value="<?=$e->rings_count?>" />
-  </label>
-
-  <?=$poruka?>
+<?=$poruka?>
 
   <div class="grid-x grid-padding-x">
     <div class="large-6 cell">
@@ -31,5 +33,7 @@ action="<?=App::config('url')?>igrac/promjena/<?=$e->sifra?>">
     </div>
   </div>
 
-
 </form>
+
+
+

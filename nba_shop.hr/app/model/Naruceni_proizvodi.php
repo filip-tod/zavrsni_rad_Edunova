@@ -38,4 +38,42 @@ class Naruceni_proizvodi
     }
 
     // CRUD - C
+    public static function create($p) //$p kao parametri - napisano skraćeno
+    {
+        $veza = DB::getInstance();
+        $veza->beginTransaction();
+        $izraz = $veza->prepare('
+        insert into naruceni_proizvodi (kosarica,kupac)
+        values (:kosarica,:kupac);
+           
+        ');
+        $izraz->execute([
+            'kosarica'=>$p['kosarica'],
+            'kupac'=>$p['kupac']
+        ]);
+    
+        return $veza->commit();
+         
+    }
+
+    public static function update($p)
+    {
+        $veza = DB::getInstance();
+        $veza->beginTransaction();
+        $izraz = $veza->prepare('
+            update naruceni_proizvodi set
+            kosarica=:kosarica,
+            kupac=:kupac
+        ');
+        $izraz->execute([
+            'kosarica'=>$p['kosarica'],
+            'kupac'=>$p['kupac']
+
+        ]);
+
+        $veza->commit();
+
+    }
+
+
 }

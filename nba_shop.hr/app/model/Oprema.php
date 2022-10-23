@@ -40,45 +40,51 @@ class Oprema
         return $izraz->fetchAll(); // vraća indeksni niz objekata tipa stdClass
     }
 
-    // CRUD - C
-
-    // select c.ime_kluba , b.ime , b.prezime , a.vrsta_proizvoda  from oprema a
-    //  inner join igrac b 
-    // on a.igrac = b.sifra  
-    // left join nba_team c
-    //  on b.nba_team = c.sifra ;
+    public static function create($p) //$p kao parametri - napisano skraćeno
+    {
+        $veza = DB::getInstance();
+        $veza->beginTransaction();
+        $izraz = $veza->prepare('
+        insert into oprema (velicina,boja,igrac,cijena,tezina_proizvoda,vrsta_proizvoda)
+        values (:velicina,:boja,:igrac,:cijena,:tezina_proizvoda,:vrsta_proizvoda);
+           
+        ');
+        $izraz->execute([
+            'velicina'=>$p['velicina'],
+            'boja'=>$p['boja'],
+            'igrac'=>$p['igrac'],
+            'cijena'=>$p['cijena'],
+            'tezina_proizvoda'=>$p['tezina_proizvoda'],
+            'vrsta_proizvoda'=>$p['vrsta_proizvoda']
+        ]);
+    
+        return $veza->commit();
+         
+    }
 
     public static function update($p)
     {
         $veza = DB::getInstance();
         $veza->beginTransaction();
-
         $izraz = $veza->prepare('
-        
-           select nba_team from igrac where sifra=:sifra
-        
-        ');
-        $izraz->execute([
-            'sifra'=>$p['sifra']
-        ]);
-
-        $izraz = $veza->prepare('
-           select igrac from oprema where sifra=:sifra
-        ');
-        $izraz->execute([
-          'sifra'=>$p['sifra']
-        ]);
-        $izraz->execute([
-            'velicina'=>$p['velicina'],
-            'boja'=>$p['boja'],
-            'igrac'=>'sifra',
-            'cijena'=>$p['cijena'],
-            'tezina_proizvoda'=>$p['tezina_proizvoda'],
-            'vrsta_proizvoda'=>$p['vrsta_proizvoda']
-        ]);
-
-
-        $veza->commit();
-
+        update oprema set
+        velicina=:velicina,
+        boja=:boja,
+        igrac=:igrac,
+        cijena=:cijena,
+        tezina_proizvoda=:tezina_proizvoda,
+        vrsta_proizvoda=:vrsta_proizvoda,
+        where sifra=:sifra
+    ');
+    $izraz->execute([
+        'velicina'=>$p['velicina'],
+        'boja'=>$p['boja'],
+        'cijena'=>$p['cijena'],
+        'tezina_proizvoda'=>$p['tezina_proizvoda'],
+        'vrsta_proizvoda'=>$p['vrsta_proizvoda']
+    ]);
+    
+        return $veza->commit();
+         
     }
 }

@@ -22,7 +22,7 @@ class OpremaController extends AutorizacijaController
         $noviOprema = Oprema::create([   
             'velicina'=>'',
             'boja'=>'',
-            'igrac'=>null,
+            'igrac'=>1,
             'cijena'=>'',
             'tezina_proizvoda'=>'',
             'vrsta_proizvoda'=>''
@@ -32,11 +32,33 @@ class OpremaController extends AutorizacijaController
                 . 'oprema/promjena/' . $noviOprema);
     }
 
-    public function brisanje($sifra)
+    public function promjena($sifra)
     {
-        Oprema::delete($sifra);
-        header('location: ' . App::config('url') . 'oprema');
+    
+        $this->entitet = (object) $_POST;
+        $this->entitet->sifra=$sifra;
+    
+        if($this->kontrola()){
+            Oprema::update((array)$this->entitet);
+            header('location: ' . App::config('url') . 'oprema');
+            return;
+        }
+
+        $this->view->render($this->phtmlDir . 'detalji',[
+            'e'=>$this->entitet,
+            'poruka'=>$this->poruka
+        ]);
     }
+
+    private function kontrola()
+    {
+      
+    }
+    // public function brisanje($sifra)
+    // {
+    //     Oprema::delete($sifra);
+    //     header('location: ' . App::config('url') . 'oprema');
+    // }
 
 
 }
