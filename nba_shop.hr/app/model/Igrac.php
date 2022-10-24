@@ -16,9 +16,9 @@ class Igrac
         
         ');
         $izraz->execute([
-            'sifra'=>$sifra            
+            'sifra' => $sifra
         ]);
-        return $izraz->fetchAll(); 
+        return $izraz->fetchAll();
     }
 
     public static function read()
@@ -45,19 +45,18 @@ class Igrac
            
         ');
         $izraz->execute([
-            'nba_team'=>$p['nba_team'],
-            'ime'=>$p['ime'],
-            'prezime'=>$p['prezime'],
-            'rings_count'=>$p['rings_count']
+            'nba_team' => $p['nba_team'],
+            'ime' => $p['ime'],
+            'prezime' => $p['prezime'],
+            'rings_count' => $p['rings_count']
         ]);
-    
+
         return $veza->commit();
-         
     }
 
 
-    
-    
+
+
 
     public static function update($p)
     {
@@ -72,15 +71,14 @@ class Igrac
             where sifra=:sifra
         ');
         $izraz->execute([
-            'nba_team'=>$p['nba_team'],
-            'ime'=>$p['ime'],
-            'prezime'=>$p['prezime'],
-            'rings_count'=>$p['rigs_count']
+            'nba_team' => $p['nba_team'],
+            'ime' => $p['ime'],
+            'prezime' => $p['prezime'],
+            'rings_count' => $p['rigs_count']
 
         ]);
 
         $veza->commit();
-
     }
 
     public static function delete($sifra)
@@ -88,13 +86,26 @@ class Igrac
         $veza = DB::getInstance();
         $veza->beginTransaction();
         $izraz = $veza->prepare('
-        delete from igrac where sifra=:sifra
+        select igrac from oprema where sifra=:sifra
     ');
-    $izraz->execute([
-        'sifra'=>$sifra
-    ]);
+        $izraz->execute([
+            'sifra' => $sifra
+        ]);
+        $sifraOprema = $izraz->fetchColumn();
+        $izraz = $veza->prepare('
+    delete from oprema where sifra=:sifra
+');
+        $izraz->execute([
+            'sifra' => $sifra
+        ]);
 
-    $veza->commit();
-}
-}
+        $izraz = $veza->prepare('
+    delete from igrac where sifra=:sifra
+');
+        $izraz->execute([
+            'sifra' => $sifraOprema
+        ]);
 
+        $veza->commit();
+    }
+}

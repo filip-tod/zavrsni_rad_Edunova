@@ -53,6 +53,12 @@ class IgracController extends AutorizacijaController
     {
       
     }
+
+    public function brisanje($sifra)
+    {
+        Igrac::delete($sifra);
+        header('location: ' . App::config('url') . 'igrac');
+    }
 }
 
 
