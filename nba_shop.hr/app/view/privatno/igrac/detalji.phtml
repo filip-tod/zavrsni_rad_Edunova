@@ -6,18 +6,18 @@ action="<?=App::config('url')?>igrac/promjena/<?=$e->sifra?>">
 <input type="text" name="rings_count" id="rings_count" value="<?=$e->rings_count?>">
 <label for="naziv">Prezime igrača:</label>
 <input type="text" name="prezime" id="prezime" value="<?=$e->prezime?>">
-<label for="nba_team">Ekipa</label>
+
+<label for="nba_team">Momčad</label>
 <select name="nba_team" id="nba_team">
-    <?php foreach($nba_team as $n): ?>
+    <?php foreach($nba_teams as $n): ?>
         <option
         <?php if ($e->nba_team==$n->sifra){
             echo ' selected="selected"';
         }
         ?>
-        value="<?=$s->sifra?>"><?=$s->ime?></option>
+        value="<?=$n->sifra?>"><?=$n->$ime_kluba?></option>
     <?php endforeach; ?>
-</select>
-
+    </select>
 
 
 

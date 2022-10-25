@@ -34,7 +34,24 @@ class OpremaController extends AutorizacijaController
 
     public function promjena($sifra)
     {
-    
+        $igrac=$this->ucitajIgrac();
+       
+
+        if(!isset($_POST['velicina'])){
+
+            $e = Oprema::readOne($sifra);
+            if($e==null){
+                header('location: ' . App::config('url') . 'oprema');
+            }
+
+            $this->view->render($this->phtmlDir . 'detalji',[
+                'e' => $e,
+                'poruka' => 'Unesite podatke'
+            ]);
+            return;
+        }
+
+
         $this->entitet = (object) $_POST;
         $this->entitet->sifra=$sifra;
     
@@ -47,18 +64,46 @@ class OpremaController extends AutorizacijaController
         $this->view->render($this->phtmlDir . 'detalji',[
             'e'=>$this->entitet,
             'poruka'=>$this->poruka
-        ]);
+        ]); 
+        $this->detalji($this->entitet,$igrac,$this->poruka);
     }
 
+    ## DETALJI
+private function detalji($oprema,$e,$poruka)
+{
+    $this->view->render($this->phtmlDir . 'detalji',[
+        'e'=>$e,
+        'oprema'=>$oprema,
+        'poruka'=>$poruka
+    ]);
+} 
+## UČITAJ NBA_TEAM
+private function ucitajIgrac()
+{
+    $igraci = [];
+    $n = new stdClass();
+    $n->sifra=0;
+    $n->naziv='Odaberi ekipu';
+    $igraci[]=$n;
+    foreach(Igrac::read() as $igrac){
+        $igraci[]=$igrac;
+    }
+    return $igraci;
+}
+
+
+## KONTROLA
     private function kontrola()
     {
       
     }
-    // public function brisanje($sifra)
-    // {
-    //     Oprema::delete($sifra);
-    //     header('location: ' . App::config('url') . 'oprema');
-    // }
-
-
+## BRISANJE
+public function brisanje($sifra)
+{
+    Oprema::delete($sifra);
+    header('location: ' . App::config('url') . 'Oprema');
 }
+
+      
+    }
+   

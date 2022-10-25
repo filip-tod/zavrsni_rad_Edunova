@@ -2,25 +2,25 @@
 
 class Igrac
 {
+
+
+//read one
     public static function readOne($sifra)
     {
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-        SELECT a.sifra, a.nba_team, a.ime, a.prezime, a.rings_count
-        FROM igrac a 
-        left join nba_team b
-        on a.nba_team =b.sifra 
-        where a.sifra=:sifra 
+        SELECT * from igrac
+        where sifra=:sifra 
 
         
         ');
         $izraz->execute([
-            'sifra' => $sifra
+            'sifra'=>$sifra
         ]);
-        return $izraz->fetchAll();
+        return $izraz->fetch(); 
     }
-
+// read
     public static function read()
     {
         $veza = DB::getInstance();
@@ -34,7 +34,7 @@ class Igrac
         $izraz->execute(); // OVO MORA BITI OBAVEZNO
         return $izraz->fetchAll(); // vraća indeksni niz objekata tipa stdClass
     }
-
+//create
     public static function create($p) //$p kao parametri - napisano skraćeno
     {
         $veza = DB::getInstance();
@@ -69,16 +69,9 @@ class Igrac
             prezime=:prezima,
             rings_count=:rings_count,
             where sifra=:sifra
-        ');
-        $izraz->execute([
-            'nba_team' => $p['nba_team'],
-            'ime' => $p['ime'],
-            'prezime' => $p['prezime'],
-            'rings_count' => $p['rigs_count']
+            ');
+            $izraz->execute($p);
 
-        ]);
-
-        $veza->commit();
     }
 
     public static function delete($sifra)
@@ -108,4 +101,6 @@ class Igrac
 
         $veza->commit();
     }
+
+ 
 }

@@ -1,22 +1,31 @@
 <form method="post" 
-action="<?=App::config('url')?>nba_team/promjena/<?=$e->sifra?>">
+action="<?=App::config('url')?>naruceni_proizvodi/promjena/<?=$e->sifra?>">
   
   
-  <label>ime_kluba
-    <input type="text" name="ime_kluba" value="<?=$e->ime_kluba?>" required/>
+  <label>ime kupca
+    <input type="text" name="ime" value="<?=$e->ime?>" required/>
   </label>
 
-  <label>trener
-    <input type="text" name="trener" value="<?=$e->trener?>" />
+  <label>prezime kupca
+    <input type="text" name="prezime" value="<?=$e->prezime?>" />
   </label>
 
 
-  <label>Championships won
-    <input type="text" name="championships_won" value="<?=$e->championships_won?>" />
+  <label>e-mail
+    <input type="email" name="email" value="<?=$e->email?>" />
   </label>
 
-  <label>Stadion
-    <input type="text" name="stadion" value="<?=$e->stadion?>" />
+  <label>datum isporuke
+    <input type="text" name="datum_isporuke" value="<?=$e->datum_isporuke?>" />
+  </label>
+  
+  <label> ukupna tezina proizvoda u KG
+    <input type="text" name="ukupna_tezina_proizvoda" value="<?=$e->ukupna_tezina_proizvoda?>" />
+  </label>
+
+    
+  <label> ukupna cijena proizvoda u HRK
+    <input type="text" name="ukupna_cijena_proizvoda" value="<?=$e->ukupna_cijena_proizvoda?>" />
   </label>
 
   <?=$poruka?>
@@ -24,7 +33,7 @@ action="<?=App::config('url')?>nba_team/promjena/<?=$e->sifra?>">
   <div class="grid-x grid-padding-x">
     <div class="large-6 cell">
         <a class="alert button expanded" 
-            href="<?=App::config('url')?>nba_team">Odustani</a>
+            href="<?=App::config('url')?>naruceni_proizvodi">Odustani</a>
     </div>
     <div class="large-6 cell">
         <input type="submit" class="button expanded" value="Spremi"></input>

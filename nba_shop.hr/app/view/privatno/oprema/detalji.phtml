@@ -6,7 +6,7 @@ action="<?=App::config('url')?>oprema/promjena/<?=$e->sifra?>">
     <input type="text" name="velicina" value="<?=$e->velicina?>" required/>
   </label>
 
-  <label>trener
+  <label>Boja
     <input type="text" name="boja" value="<?=$e->boja?>" />
   </label>
 
@@ -25,13 +25,13 @@ action="<?=App::config('url')?>oprema/promjena/<?=$e->sifra?>">
 
   <label for="igrac">igrač</label>
 <select name="igrac" id="igrac">
-    <?php foreach($igrac as $n): ?>
+    <?php foreach($igraci as $i): ?>
         <option
-        <?php if ($e->nba_team==$n->sifra){
+        <?php if ($e->igrac==$i->sifra){
             echo ' selected="selected"';
         }
         ?>
-        value="<?=$s->sifra?>"><?=$s->ime?></option>
+        value="<?=$s->sifra?>"><?=$s->ime?> <?=$s->prezime?></option>
     <?php endforeach; ?>
 </select>
 

@@ -20,8 +20,12 @@ class Naruceni_proizvodiController extends AutorizacijaController
     public function novi()
     {
         $noviNaruceni = Naruceni_proizvodi::create([   
-            'kosarica'=>1,
-            'kupac'=>1
+            'ime'=>'',
+            'prezime'=>'',
+            'email'=>'',
+            'datum_isporuke'=>'',
+            'ukupna_tezina_proizvoda'=>'',
+            'ukupna_cijena_proizvoda'=>''
             
         ]);
         header('location: ' . App::config('url') 
@@ -30,7 +34,21 @@ class Naruceni_proizvodiController extends AutorizacijaController
 
     public function promjena($sifra)
     {
-    
+        if(!isset($_POST['ime'])){
+
+            $e = Naruceni_proizvodi::readOne($sifra);
+            if($e==null){
+                header('location: ' . App::config('url') . 'naruceni_proizvodi');
+            }
+
+            $this->view->render($this->phtmlDir . 'detalji',[
+                'e' => $e,
+                'poruka' => 'Unesite podatke'
+            ]);
+            return;
+        }
+
+        
         $this->entitet = (object) $_POST;
         $this->entitet->sifra=$sifra;
     
@@ -45,9 +63,15 @@ class Naruceni_proizvodiController extends AutorizacijaController
             'poruka'=>$this->poruka
         ]);
     }
-
+    ##Kontrola
     private function kontrola()
     {
-      
+     
+    }
+
+    public function brisanje($sifra)
+    {
+        Naruceni_proizvodi::delete($sifra);
+        header('location: ' . App::config('url') . 'naruceni_proizvodi');
     }
 }

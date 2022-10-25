@@ -8,12 +8,9 @@ class Oprema
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-        select b.ime , b.prezime , c.ime_kluba , a.velicina ,a.boja , a.cijena 
-         from oprema a 
-        inner join igrac b 
-        on a.igrac  = b.sifra left join nba_team c
-        on b.nba_team = c.sifra 
-        where a.sifra=:sifra
+        select * from oprema 
+        where 
+        sifra=:sifra
         
         ');
         $izraz->execute([
@@ -87,4 +84,19 @@ class Oprema
         return $veza->commit();
          
     }
+
+    public static function delete($sifra)
+    {
+        $veza = DB::getInstance();
+        $izraz = $veza->prepare('
+        
+           delete from oprema where sifra=:sifra 
+        
+        ');
+        $izraz->execute([
+            'sifra'=>$sifra
+        ]);
+        
+    }
+    
 }
