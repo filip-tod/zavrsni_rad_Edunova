@@ -21,7 +21,7 @@ class IgracController extends AutorizacijaController
     public function novi()
     {
         $noviIgrac = Igrac::create([   
-            'nba_team'=>null,
+            'nba_team'=>1,
             'ime'=>'',
             'prezime'=>'',
             'rings_count'=>''
@@ -46,7 +46,7 @@ class IgracController extends AutorizacijaController
             $this->view->render($this->phtmlDir . 'detalji',[
                 'e' => $e,
                 'poruka' => 'Unesite podatke'
-            ]);
+            ]); 
             return;
         }
 
@@ -55,6 +55,9 @@ class IgracController extends AutorizacijaController
         $this->entitet->sifra=$sifra;
     
         if($this->kontrola()){
+            if($this->entitet->nba_team==0){
+                $this->entitet->nba_team=null;
+
             Igrac::update((array)$this->entitet);
             header('location: ' . App::config('url') . 'igrac');
             return;
@@ -68,26 +71,26 @@ class IgracController extends AutorizacijaController
     }
 
 ## DETALJI
-private function detalji($nba_teams,$e,$poruka)
+private function detalji($nba_team,$e,$poruka)
 {
     $this->view->render($this->phtmlDir . 'detalji',[
         'e'=>$e,
-        'nba_teams'=>$nba_teams,
+        'nba_team'=>$nba_team,
         'poruka'=>$poruka
     ]);
 } 
 ## UČITAJ NBA_TEAM
 private function ucitajNba_team()
 {
-    $nba_teams = [];
-    $n = new stdClass();
-    $n->sifra=0;
-    $n->naziv='Odaberi ekipu';
-    $nba_teams[]=$n;
-    foreach(Nba_team::read() as $nba_team){
-        $nba_teams[]=$nba_team;
+    $lista = [];
+    $s = new stdClass();
+    $s->sifra=0;
+    $s->ime_kluba='odaberi ekipu';
+    $lista[]=$s;
+    foreach(Nba_team::read() as $p){
+        $lista[]=$p;
     }
-    return $nba_teams;
+    return $lista;
 }
 
 
