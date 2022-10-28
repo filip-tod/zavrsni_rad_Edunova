@@ -35,25 +35,23 @@ class Igrac
         return $izraz->fetchAll(); // vraća indeksni niz objekata tipa stdClass
     }
 //create
-    public static function create($p) //$p kao parametri - napisano skraćeno
-    {
-        $veza = DB::getInstance();
-        $veza->beginTransaction();
-        $izraz = $veza->prepare('
-        insert into igrac (nba_team,ime,prezime,rings_count)
-        values (:nba_team,:ime,:prezime,:rings_count);
-           
-        ');
-        $izraz->execute([
-            'nba_team' => $p['nba_team'],
-            'ime' => $p['ime'],
-            'prezime' => $p['prezime'],
-            'rings_count' => $p['rings_count']
-        ]);
+public static function create($p)
+{
 
-        return $veza->commit();
-    }
-
+    $veza = DB::getInstance();
+    $izraz = $veza->prepare('
+    
+    insert into igrac
+        (nba_team,ime,prezime,
+        rings_count)
+        values
+        (:nba_team,:ime,:prezime,
+        :rings_count);
+    
+    ');
+    $izraz->execute($p);
+    return $veza->lastInsertId();
+}
 
 
 
@@ -77,29 +75,14 @@ class Igrac
     public static function delete($sifra)
     {
         $veza = DB::getInstance();
-        $veza->beginTransaction();
         $izraz = $veza->prepare('
-        select igrac from oprema where sifra=:sifra
-    ');
+        
+           delete from igrac where sifra=:sifra 
+        
+        ');
         $izraz->execute([
-            'sifra' => $sifra
+            'sifra'=>$sifra
         ]);
-        $sifraOprema = $izraz->fetchColumn();
-        $izraz = $veza->prepare('
-    delete from oprema where sifra=:sifra
-');
-        $izraz->execute([
-            'sifra' => $sifra
-        ]);
-
-        $izraz = $veza->prepare('
-    delete from igrac where sifra=:sifra
-');
-        $izraz->execute([
-            'sifra' => $sifraOprema
-        ]);
-
-        $veza->commit();
     }
 
  

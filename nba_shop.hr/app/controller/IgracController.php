@@ -20,7 +20,7 @@ class IgracController extends AutorizacijaController
 ## NOVI
     public function novi()
     {
-        $noviIgrac = Igrac::create([   
+        $novi = Igrac::create([   
             'nba_team'=>1,
             'ime'=>'',
             'prezime'=>'',
@@ -28,28 +28,24 @@ class IgracController extends AutorizacijaController
             
         ]);
         header('location: ' . App::config('url') 
-                . 'igrac/promjena/' . $noviIgrac);
+                . 'igrac/promjena/' . $novi);
     }
 ## PROMJENA
     public function promjena($sifra)
     {
-        $nba_team=$this->ucitajNba_team();
+        $nba_teams=$this->ucitajNba_team();
        
 
         if(!isset($_POST['ime'])){
-
             $e = Igrac::readOne($sifra);
             if($e==null){
                 header('location: ' . App::config('url') . 'igrac');
             }
-
-            $this->view->render($this->phtmlDir . 'detalji',[
-                'e' => $e,
-                'poruka' => 'Unesite podatke'
-            ]); 
+            $this->detalji($e,$nba_teams,'popuni podatke');
+    
             return;
         }
-
+        
 
         $this->entitet = (object) $_POST;
         $this->entitet->sifra=$sifra;
@@ -57,40 +53,40 @@ class IgracController extends AutorizacijaController
         if($this->kontrola()){
             if($this->entitet->nba_team==0){
                 $this->entitet->nba_team=null;
-
+            }
             Igrac::update((array)$this->entitet);
             header('location: ' . App::config('url') . 'igrac');
             return;
         }
 
-        $this->view->render($this->phtmlDir . 'detalji',[
-            'e'=>$this->entitet,
-            'poruka'=>$this->poruka
-        ]); 
-        $this->detalji($this->entitet,$nba_team,$this->poruka);
+        $this->detalji($this->entitet,$nba_teams,$this->poruka);
     }
 
 ## DETALJI
-private function detalji($nba_team,$e,$poruka)
-{
-    $this->view->render($this->phtmlDir . 'detalji',[
-        'e'=>$e,
-        'nba_team'=>$nba_team,
-        'poruka'=>$poruka
-    ]);
-} 
+private function detalji($nba_teams,$e,$poruka)
+    {
+        $this->view->render($this->phtmlDir . 'detalji',[
+            'e'=>$e,
+            'nba_teams'=>$nba_teams,
+            'poruka'=>$poruka,
+            'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">',
+            'js'=>'<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>'
+       
+          
+        ]);
+    }
 ## UČITAJ NBA_TEAM
 private function ucitajNba_team()
 {
-    $lista = [];
+    $nba_teams = [];
     $s = new stdClass();
     $s->sifra=0;
     $s->ime_kluba='odaberi ekipu';
-    $lista[]=$s;
-    foreach(Nba_team::read() as $p){
-        $lista[]=$p;
+    $nba_teams[]=$s;
+    foreach(Nba_team::read() as $nba_team){
+        $nba_teams[]=$nba_team;
     }
-    return $lista;
+    return $nba_teams;
 }
 
 
