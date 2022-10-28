@@ -64,8 +64,8 @@ public static function create($p)
             update igrac set
             nba_team=:nba_team,
             ime=:ime,
-            prezime=:prezima,
-            rings_count=:rings_count,
+            prezime=:prezime,
+            rings_count=:rings_count
             where sifra=:sifra
             ');
             $izraz->execute($p);

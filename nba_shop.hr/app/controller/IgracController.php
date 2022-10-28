@@ -54,7 +54,7 @@ class IgracController extends AutorizacijaController
         $this->entitet->sifra=$sifra;
     
         if($this->kontrola()){
-            Igrac::update((array)$this->entitet);
+             Igrac::update((array)$this->entitet);
             header('location: ' . App::config('url') . 'igrac');
             return;
         }
@@ -89,7 +89,7 @@ private function ucitajNba_team()
 ## KONTROLA
     private function kontrola()
     {
-      
+        return true;
     }
 ## BRISANJE
 public function brisanje($sifra)
