@@ -1,3 +1,9 @@
+
+.grid-container {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
 #program{
     min-height: 400px;
 }
@@ -6,4 +12,74 @@
     border: 1px solid #cacaca;
     padding: 1rem;
     border-radius: 0;
+}
+
+.top-bar {
+    background: #000;
+
+}
+
+.top-bar, .top-bar ul {
+    background: #000;
+}
+
+
+.menu-text a {
+    color: #fff !important;
+    font-size: 40px;
+
+}
+
+.menu-text a:before {
+    margin-right: .4rem;
+}
+
+.menu li a {
+    color: #fff;
+}
+
+.submenu li a {
+    color: #fff;
+}
+
+
+.dropdown.menu > li.is-dropdown-submenu-parent > a::after {
+    border-color: #fff transparent transparent;
+}
+
+
+
+
+.callout {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 0;
+}
+
+.o-meni {
+    text-align:center;
+    margin-top: 50px;
+    background: #e1f9ff;
+    padding:20px;
+}
+
+.o-meni p {
+    margin: 0;
+}
+
+.footer {
+    text-align:center;
+    margin-top: 50px;
+    background: #000;
+    color: #fff;
+    padding:20px;
+}
+
+
+.nadzorna {
+    margin-top: 1.5rem;
+}
+
+.programi  {
+    margin-top: 1.5rem;
 }

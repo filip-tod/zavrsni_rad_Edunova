@@ -7,12 +7,11 @@
 <div class="top-bar" id="example-menu">
   <div class="top-bar-left">
     <ul class="dropdown menu" data-dropdown-menu>
-      <li class="menu-text"><?php  echo 'NBA SHOP';?></li>
-      <li><a href="<?=App::config('url') ?>">Početna</a></li>
+      <li class="menu-text"><a class="fi-web" href="<?=App::config('url') ?>"><?php  echo 'NBA SHOP';?></a></li>
       <?php if(App::auth()): ?>
-        <li><a href="<?=App::config('url') ?>nadzornaploca">Nadzorna ploča</a></li>
+        <li><a a class="nadzorna" href="<?=App::config('url') ?>nadzornaploca">Nadzorna ploča</a></li>
         <li>
-          <a href="#">Programi</a>
+          <a class="programi" href="#">Programi</a>
           <ul class="vertical menu">
             <li><a href="<?=App::config('url') ?>kupac">kupac</a></li>
             <li><a href="<?=App::config('url') ?>nba_team">nba_team</a></li>
@@ -24,8 +23,8 @@
       <?php endif; ?>
     </ul>
   </div>
-  <div class="top-bar">
-  <div class="top-bar-left">
+  <div class="top-bar-center">
+  <div class="top-bar-right">
     <ul class="dropdown menu" data-dropdown-menu>
       <li class="menu-text"></li>
       <li>
