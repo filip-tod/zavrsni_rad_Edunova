@@ -1,0 +1,36 @@
+<form method="post" 
+action="<?=App::config('url')?>kosarica/promjena/<?=$e->sifra?>">
+<label for="ukupna_tezina_proizvoda">ukupna težina proizvoda</label>
+<input type="text" name="ukupna_tezina_proizvoda" id="ukupna_tezina_proizvoda" value="<?=$e->ukupna_tezina_proizvoda?>">
+<label for="ukupna_cijena_proizvoda">ukupna cijena proizvoda</label>
+<input type="text" name="ukupna_cijena_proizvoda" id="ukupna_cijena_proizvoda" value="<?=$e->ukupna_cijena_proizvoda?>">
+<label for="datum">datum isporuke:</label>
+<input type="datetime-local" name="datum" id="datum" value="<?=$e->datum_isporuke?>">
+<label for="kolicina_opreme">količina artikala u košarici:</label>
+<input type="text" name="kolicina_opreme" id="kolicina_opreme" value="<?=$e->kolicina_opreme?>">
+
+<label for="oprema">oprema</label>
+<select name="oprema" id="oprema">
+    <?php foreach($opreme as $n): ?>
+        <option
+        <?php if ($e->oprema==$n->sifra){
+            echo ' selected="selected"';
+        }
+        ?>
+        value="<?=$n->sifra?>"><?=$n->cijena?><?php echo', ';?><?=$n->boja?><?php echo', ';?><?=$n->velicina?><?php echo', ';?><?=$n->vrsta_proizvoda?></option>
+    <?php endforeach; ?>
+    </select>
+    
+<?=$poruka?>
+
+  <div class="grid-x grid-padding-x">
+    <div class="large-6 cell">
+        <a class="alert button expanded" 
+            href="<?=App::config('url')?>kosarica">Odustani</a>
+    </div>
+    <div class="large-6 cell">
+        <input type="submit" class="button expanded" value="Spremi"></input>
+    </div>
+  </div>
+
+</form>

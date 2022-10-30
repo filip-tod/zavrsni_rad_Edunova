@@ -25,7 +25,7 @@ class Oprema
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-        select b.ime , b.prezime , c.ime_kluba , a.velicina ,a.boja , a.cijena 
+        select a.sifra, b.ime , b.prezime , c.ime_kluba , a.velicina ,a.boja , a.cijena 
         from oprema a 
        inner join igrac b 
        on a.igrac  = b.sifra left join nba_team c

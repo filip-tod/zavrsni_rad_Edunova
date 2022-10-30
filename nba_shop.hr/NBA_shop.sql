@@ -38,8 +38,8 @@ create table nba_team(
 create table igrac(
     sifra int not null primary key auto_increment,
     nba_team int,
-    ime varchar(20) ,
-    prezime VARCHAR(20),
+    ime varchar(20),
+    prezime VARCHAR(20) ,
     rings_count VARCHAR(50)
 );
 

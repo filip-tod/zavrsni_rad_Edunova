@@ -1,6 +1,6 @@
 <?php
 
-class Igrac
+class Kosarica
 {
 
 
@@ -10,15 +10,16 @@ class Igrac
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-        SELECT * from igrac
-        where sifra=:sifra 
+        SELECT * from kosarica where sifra=:sifra 
 
         
         ');
         $izraz->execute([
             'sifra'=>$sifra
+            
         ]);
         return $izraz->fetch(); 
+        
     }
 // read
     public static function read()
@@ -26,9 +27,8 @@ class Igrac
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-        SELECT a.sifra,  a.rings_count, b.ime_kluba, a.ime , a.prezime  
-        FROM igrac a left join nba_team b
-        on a.nba_team =b.sifra 
+        select * 
+        from kosarica a left join oprema b on a.oprema =b.sifra 
         
         ');
         $izraz->execute(); 
@@ -41,12 +41,10 @@ public static function create($p)
     $veza = DB::getInstance();
     $izraz = $veza->prepare('
     
-    insert into igrac
-        (nba_team,ime,prezime,
-        rings_count)
+    insert into kosarica
+        (oprema,ukupna_tezina_proizvoda,ukupna_cijena_proizvoda,datum_isporuke,kolicina_opreme)
         values
-        (:nba_team,:ime,:prezime,
-        :rings_count);
+        (:oprema,:ukupna_tezina_proizvoda,:ukupna_cijena_proizvoda,:datum_isporuke,:kolicina_opreme);
     
     ');
     $izraz->execute($p);
@@ -59,16 +57,16 @@ public static function create($p)
     public static function update($p)
     {
         $veza = DB::getInstance();
-        $veza->beginTransaction();
-        $izraz = $veza->prepare('
-            update igrac set
-            nba_team=:nba_team,
-            ime=:ime,
-            prezime=:prezime,
-            rings_count=:rings_count
+         $izraz = $veza->prepare('
+            update kosarica set
+            oprema=:oprema,
+            ukupna_tezina_proizvoda=:ukupna_tezina_proizvoda,
+            ukupna_cijena_proizvoda=:ukupna_cijena_proizvoda,
+            datum_isporuke=:datum_isporuke,
+            kolicina_opreme=:kolicina_opreme
             where sifra=:sifra
             ');
-            $izraz->execute($p);
+            $izraz->execute($p); 
 
     }
 
@@ -77,13 +75,11 @@ public static function create($p)
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-           delete from igrac where sifra=:sifra 
+           delete from kosarica where sifra=:sifra 
         
         ');
         $izraz->execute([
             'sifra'=>$sifra
         ]);
     }
-
- 
 }

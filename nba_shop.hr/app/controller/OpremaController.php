@@ -22,7 +22,7 @@ class OpremaController extends AutorizacijaController
         $noviOprema = Oprema::create([   
             'velicina'=>'',
             'boja'=>'',
-            'igrac'=>1,
+            'igrac'=>null,
             'cijena'=>'',
             'tezina_proizvoda'=>'',
             'vrsta_proizvoda'=>''
@@ -34,10 +34,10 @@ class OpremaController extends AutorizacijaController
 
     public function promjena($sifra)
     {
-        $igrac=$this->ucitajIgrac();
+        $igraci=$this->ucitajIgraci();
        
 
-        if(!isset($_POST['velicina'])){
+        if(!isset($_POST['ime'])){
 
             $e = Oprema::readOne($sifra);
             if($e==null){
@@ -46,6 +46,7 @@ class OpremaController extends AutorizacijaController
 
             $this->view->render($this->phtmlDir . 'detalji',[
                 'e' => $e,
+                'igraci'=>$igraci,
                 'poruka' => 'Unesite podatke'
             ]);
             return;
@@ -55,35 +56,31 @@ class OpremaController extends AutorizacijaController
         $this->entitet = (object) $_POST;
         $this->entitet->sifra=$sifra;
     
-        if($this->kontrola()){
+        
             Oprema::update((array)$this->entitet);
             header('location: ' . App::config('url') . 'oprema');
             return;
-        }
-
-        $this->view->render($this->phtmlDir . 'detalji',[
-            'e'=>$this->entitet,
-            'poruka'=>$this->poruka
-        ]); 
-        $this->detalji($this->entitet,$igrac,$this->poruka);
+    
+        $this->detalji($this->entitet,$igraci,$this->poruka);
     }
 
     ## DETALJI
-private function detalji($oprema,$e,$poruka)
+private function detalji($igraci,$e,$poruka)
 {
     $this->view->render($this->phtmlDir . 'detalji',[
         'e'=>$e,
-        'oprema'=>$oprema,
+        'igraci'=> $igraci,
         'poruka'=>$poruka
     ]);
 } 
 ## UČITAJ NBA_TEAM
-private function ucitajIgrac()
+private function ucitajIgraci()
 {
     $igraci = [];
     $n = new stdClass();
     $n->sifra=0;
-    $n->naziv='Odaberi ekipu';
+    $n->ime='Odaberi ime i ';
+    $n->prezime='prezime igrača';
     $igraci[]=$n;
     foreach(Igrac::read() as $igrac){
         $igraci[]=$igrac;

@@ -44,6 +44,7 @@ class IgracController extends AutorizacijaController
 
             $this->view->render($this->phtmlDir . 'detalji',[
                 'e' => $e,
+                'nba_teams'=>$nba_teams,
                 'poruka' => 'Unesite podatke'
             ]);
             return;
@@ -53,11 +54,10 @@ class IgracController extends AutorizacijaController
         $this->entitet = (object) $_POST;
         $this->entitet->sifra=$sifra;
     
-        if($this->kontrola()){
              Igrac::update((array)$this->entitet);
             header('location: ' . App::config('url') . 'igrac');
             return;
-        }
+        
 
         $this->detalji($this->entitet,$nba_teams,$this->poruka);
     }
@@ -77,7 +77,7 @@ private function ucitajNba_team()
     $nba_teams = [];
     $n = new stdClass();
     $n->sifra=0;
-    $n->naziv='Odaberi ekipu';
+    $n->ime_kluba='odaberi klub';
     $nba_teams[]=$n;
     foreach(Nba_team::read() as $nba_team){
         $nba_teams[]=$nba_team;
@@ -87,10 +87,7 @@ private function ucitajNba_team()
 
 
 ## KONTROLA
-    private function kontrola()
-    {
-        return true;
-    }
+
 ## BRISANJE
 public function brisanje($sifra)
 {
